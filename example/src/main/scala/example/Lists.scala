@@ -1,5 +1,7 @@
 package example
 
+import scala.annotation.tailrec
+
 /**
   *
   */
@@ -26,29 +28,13 @@ object Lists {
    * @return The sum of all elements in `xs`
    */
   def sum(xs: List[Int]): Int = {
+    @tailrec
     def summary(xs: List[Int], acc: Int): Int = xs match {
       case Nil => throw new NoSuchElementException
       case h :: Nil => acc + h
       case h :: t => summary(t, acc + h)
     }
     summary(xs, 0)
-  }
-
-
-  def merge(l1: List[Int], l2: List[Int]): List[Int] = (l1, l2) match {
-    case (Nil, _) => l2
-    case (_, Nil) => l1
-    case (h1 :: t1, h2 :: t2) =>
-      if (h1 > h2) h1 :: merge(l2, t1)
-      else h2 :: merge(l1, t2)
-  }
-
-  def mergeSort(list: List[Int]): List[Int] = list match {
-    case Nil => list
-    case h :: Nil => list
-    case _ =>
-      val (l1, l2) = list.splitAt(list.length / 2)
-      merge(mergeSort(l1), mergeSort(l2))
   }
 
   /**
@@ -65,6 +51,7 @@ object Lists {
    * @throws java.util.NoSuchElementException if `xs` is an empty list
    */
   def max(xs: List[Int]): Int = {
+    @tailrec
     def maximum(xs: List[Int], max: Int): Int = xs match {
       case Nil => throw new NoSuchElementException
       case h :: Nil =>
@@ -74,6 +61,6 @@ object Lists {
         if(h > max) maximum(t, h)
         else maximum(t, max)
     }
-    maximum(xs, 0)
+    maximum(xs, Int.MinValue)
   }
 }

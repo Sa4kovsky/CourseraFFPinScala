@@ -121,6 +121,9 @@ import org.junit.Assert.assertEquals
     Assert.assertEquals( 3, max(List(3)))
   }
 
+  @Test def `max of all negative numbers (10pts)`: Unit = {
+    Assert.assertEquals(-1, max(List(-1, -2, -5, -1, -2, -7, -6, -5, -10, -10)))
+  }
 
 
   @Rule def individualTestTimeout = new org.junit.rules.Timeout(1000)
