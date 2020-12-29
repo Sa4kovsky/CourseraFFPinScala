@@ -94,11 +94,31 @@ import org.junit.Assert.assertEquals
    * every tested aspect of a method.
    */
   @Test def `sum of a few numbers (10pts)`: Unit = {
-    assert(sum(List(1,2,0)) == 3)
+    Assert.assertEquals(44, sum(List(1, 2, 0, 1, 2, 7, 6, 5, 10, 10)))
+  }
+
+  @Test def `sum of several negative numbers (10pts)`: Unit = {
+    Assert.assertEquals(-42, sum(List(1, -2, 0, -1, -2, -7, -6, -5, -10, -10)))
+  }
+
+  @Test def `sum of a list of zeros (5pts)`: Unit = {
+    Assert.assertEquals(0, sum(List(0, -0, 0, -0, 0)))
+  }
+
+  @Test def `sum of one pts`: Unit = {
+    Assert.assertEquals(3, sum(List(3)))
   }
 
   @Test def `max of a few numbers (10pts)`: Unit = {
-    assert(max(List(3, 7, 2)) == 7)
+    Assert.assertEquals( 9, max(List(3, 1, 2, 9, 4, 5, 0, 7, 6, 8)))
+  }
+
+  @Test def `max of several negative numbers (10pts)`: Unit = {
+    Assert.assertEquals( 8, max(List(3, 1, 2, -9, 4, 5, 0, 7, 6, 8)))
+  }
+
+  @Test def `max of one pts`: Unit = {
+    Assert.assertEquals( 3, max(List(3)))
   }
 
 
