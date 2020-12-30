@@ -102,11 +102,15 @@ import org.junit.Assert.assertEquals
   }
 
   @Test def `sum of a list of zeros (5pts)`: Unit = {
-    Assert.assertEquals(0, sum(List(0, -0, 0, -0, 0)))
+    Assert.assertEquals(0, sum(List(0, 0, 0, 0, 0)))
   }
 
   @Test def `sum of one pts`: Unit = {
     Assert.assertEquals(3, sum(List(3)))
+  }
+
+  @Test def ` sum of empty (5pts)`: Unit = {
+    Assert.assertEquals(0, sum(List()))
   }
 
   @Test def `max of a few numbers (10pts)`: Unit = {

@@ -30,7 +30,7 @@ object Lists {
   def sum(xs: List[Int]): Int = {
     @tailrec
     def summary(xs: List[Int], acc: Int): Int = xs match {
-      case Nil => throw new NoSuchElementException
+      case Nil => 0
       case h :: Nil => acc + h
       case h :: t => summary(t, acc + h)
     }
