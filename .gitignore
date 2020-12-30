@@ -16,3 +16,11 @@ project/plugins/project/
 .scala_dependencies
 .worksheet
 .idea
+build
+.classpath
+.project
+.settings
+org.scala-ide.sdt.core/META-INF/MANIFEST.MF
+org.scala-ide.sdt.update-site/site.xml
+*.class
+*.log
