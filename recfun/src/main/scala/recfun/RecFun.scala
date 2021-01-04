@@ -26,7 +26,15 @@ object RecFun extends RecFunInterface {
   /**
    * Exercise 2
    */
-  def balance(chars: List[Char]): Boolean = ???
+  def balance(chars: List[Char]): Boolean = {
+    def loop(list: List[Char], acc: Int): Int =
+      if (list.isEmpty) acc
+      else if (list.head == '(') loop(list.tail, acc + 1)
+      else if (list.head == ')' && acc > 0) loop(list.tail, acc - 1)
+      else if (list.head == ')' && acc <= 0) -1
+      else loop(list.tail, acc)
+    loop(chars, 0) == 0
+  }
 
   /**
    * Exercise 3
