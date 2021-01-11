@@ -18,30 +18,31 @@ trait FunSets extends FunSetsInterface {
   /**
    * Returns the set of the one given element.
    */
-  def singletonSet(elem: Int): FunSet = _ == elem
+  def singletonSet(elem: Int): FunSet = (x: Int) => elem == x
+
 
   /**
    * Returns the union of the two given sets,
    * the sets of all elements that are in either `s` or `t`.
    */
-  def union(s: FunSet, t: FunSet): FunSet = x => s(x) || t(x)
+  def union(s: FunSet, t: FunSet): FunSet = (x: Int) => s(x) || t(x)
 
   /**
    * Returns the intersection of the two given sets,
    * the set of all elements that are both in `s` and `t`.
    */
-  def intersect(s: FunSet, t: FunSet): FunSet = x => s(x) && t(x)
+  def intersect(s: FunSet, t: FunSet): FunSet = (x: Int) => s(x) && t(x)
 
   /**
    * Returns the difference of the two given sets,
    * the set of all elements of `s` that are not in `t`.
    */
-  def diff(s: FunSet, t: FunSet): FunSet = x => s(x) || !t(x)
+  def diff(s: FunSet, t: FunSet): FunSet = (x: Int) => s(x) && !t(x)
 
   /**
    * Returns the subset of `s` for which `p` holds.
    */
-  def filter(s: FunSet, p: Int => Boolean): FunSet = x => s(x) || p(x)
+  def filter(s: FunSet, p: Int => Boolean): FunSet = (x: Int) => s(x) && p(x)
 
 
   /**
@@ -54,23 +55,23 @@ trait FunSets extends FunSetsInterface {
    */
   def forall(s: FunSet, p: Int => Boolean): Boolean = {
     def iter(a: Int): Boolean = {
-      if (a < bound) true
-      else if (contains(intersect(s,p),a)) false
+      if (a > bound) true
+      else if (contains(diff(s,p),a)) false
       else iter(a+1)
     }
-    iter(0)
+    iter(-bound)
   }
 
   /**
    * Returns whether there exists a bounded integer within `s`
    * that satisfies `p`.
    */
-  def exists(s: FunSet, p: Int => Boolean): Boolean = ???
+  def exists(s: FunSet, p: Int => Boolean): Boolean = !forall(s,x => !p(x))
 
   /**
    * Returns a set transformed by applying `f` to each element of `s`.
    */
-  def map(s: FunSet, f: Int => Int): FunSet = ???
+  def map(s: FunSet, f: Int => Int): FunSet = (x: Int) => exists(s, y => x == f(y))
 
   /**
    * Displays the contents of a set

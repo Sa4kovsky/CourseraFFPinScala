@@ -38,6 +38,13 @@ class FunSetSuite {
     val s1 = singletonSet(1)
     val s2 = singletonSet(2)
     val s3 = singletonSet(3)
+    val s4 = singletonSet(4)
+    val s5 = singletonSet(5)
+    val s6 = singletonSet(6)
+    val s7 = singletonSet(7)
+    val s8 = singletonSet(8)
+    val s9 = singletonSet(9)
+    val s10 = singletonSet(10)
   }
 
   /**
@@ -47,7 +54,7 @@ class FunSetSuite {
    * Once you finish your implementation of "singletonSet", remvoe the
    * @Ignore annotation.
    */
-  @Ignore("not ready yet") @Test def `singleton set one contains one`: Unit = {
+  @Test def `singleton set one contains one`: Unit = {
 
     /**
      * We create a new instance of the "TestSets" trait, this gives us access
@@ -58,7 +65,7 @@ class FunSetSuite {
        * The string argument of "assert" is a message that is printed in case
        * the test fails. This helps identifying which assertion failed.
        */
-      assert(contains(s1, 1), "Singleton")
+      Assert.assertEquals(false, contains(s1, 2))
     }
   }
 
@@ -71,7 +78,41 @@ class FunSetSuite {
     }
   }
 
+  @Test def `return all elements that are both in s or t`: Unit = {
+    new TestSets {
+      val s = union(union(s1, s2), s3)
+      val t = union(union(union(s2, s4), s5), s6)
+      Assert.assertEquals( true ,contains(intersect(s,t),2))
+    }
+  }
 
+  @Test def `return all elements of s that are not in t`: Unit = {
+    new TestSets {
+      val s = union(union(s1, s2), s3)
+      val t = union(union(union(s2, s4), s5), s6)
+      Assert.assertEquals( true ,contains(diff(s,t),1))
+    }
+  }
 
+  @Test def `return the subset of s for which p => p/2 holds`: Unit = {
+    new TestSets {
+      val t = union(union(union(union(union(union(s2, s4), s5), s6), s7), s8), s9)
+      Assert.assertEquals( true ,contains(filter(t,p => p/2 == 1),2))
+    }
+  }
+
+  @Test def `Returns whether all bounded integers within s satisfy p`: Unit = {
+    new TestSets {
+      val t = union(union(union(union(union(union(s2, s4), s5), s6), s7), s8), s9)
+      Assert.assertEquals(true, forall(t,x => x >= 0))
+    }
+  }
+
+  @Test def `Returns whether there exists a bounded integer`: Unit = {
+    new TestSets {
+      val t = union(union(union(union(union(union(s2, s4), s5), s6), s7), s8), s9)
+      Assert.assertEquals( true, exists(t,x=> x%2 == 2))
+    }
+  }
   @Rule def individualTestTimeout = new org.junit.rules.Timeout(10 * 1000)
 }
